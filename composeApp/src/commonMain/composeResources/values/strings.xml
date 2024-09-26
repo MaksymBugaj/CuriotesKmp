@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search</string>
+    <string name="check_later">Check later</string>
+    <string name="description">Description</string>"
+    <string name="title">Title</string>"
+    <string name="link">Link</string>
+    <string name="create_curiote">Create Curiote</string>
+    <string name="curiotes">Curiotes</string>
+
+</resources>
