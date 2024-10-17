@@ -58,6 +58,7 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.uuid)
+            implementation(compose.material3)
         }
 
     }
@@ -103,5 +104,6 @@ room {
 
 dependencies {
     implementation(libs.identity.jvm)
+    implementation(libs.androidx.material3.android)
     ksp(libs.room.compiler)
 }

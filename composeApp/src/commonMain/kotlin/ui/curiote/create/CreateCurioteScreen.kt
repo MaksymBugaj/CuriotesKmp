@@ -19,31 +19,31 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import curioteskmp.composeapp.generated.resources.Res
@@ -111,40 +111,25 @@ fun CurioteContent(
             .fillMaxSize()
             .padding(paddingDefault)
     ) {
-        Text(text = titleText)
-        //if (showError) ErrorToast()
-        OutlinedTextField(
+        TextCustom(
+            text = titleText,
+            )
+        OutlinedTextFieldCustom(
             value = curioteTitle,
             onValueChange = onTitleChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = paddingDefault),
             label = { Text(text = stringResource(Res.string.title)) }
         )
-        OutlinedTextField(
+        OutlinedTextFieldCustom(
             value = curioteDescription,
             onValueChange = onDescriptionChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = paddingDefault),
             label = { Text(text = stringResource(Res.string.description)) }
         )
-        OutlinedTextField(
+        OutlinedTextFieldCustom(
             value = curioteLink,
             onValueChange = onLinkChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = paddingDefault),
-            label = { Text(text = stringResource(Res.string.link)) }
+            label = { Text(text = stringResource(Res.string.link)) },
+            paddingDefault
         )
-//        OutlinedTextField(
-//            value = noteLink,
-//            onValueChange = viewModel::setCurioteLink,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(top = Dimens.Padding.paddingDefault),
-//            label = { Text(text = stringResource(id = R.string.link)) }
-//        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,7 +137,7 @@ fun CurioteContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = stringResource(Res.string.check_later))
+            TextCustom(text = stringResource(Res.string.check_later))
             Switch(
                 checked = needsDetails,
                 onCheckedChange = onCheckLaterChange,
@@ -163,28 +148,92 @@ fun CurioteContent(
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             if(deleteButtonVisible){
-                Button(
+                CustomOutlinedButton(
                     onClick = onDeleteClick,
-                    modifier = Modifier) {
-                    Text(text = stringResource(Res.string.delete))
-                }
+                    modifier = Modifier,
+                    text = stringResource(Res.string.delete))
             }
-            Button(
+            CustomOutlinedButton(
                 onClick = {
                     onSaveClick()
                 },
-                modifier = Modifier
-            ) {
-                Text(text = stringResource(Res.string.save))
-            }
+                modifier = Modifier,
+                text = stringResource(Res.string.save)
+            )
         }
         Spacer(modifier = Modifier.height(paddingDefault))
         //DynamicLinkList(viewModel)
 
     }
+}
+
+@Composable
+fun CustomOutlinedButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick:() -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MaterialTheme.colorScheme.primary
+        ),
+        content = {
+            TextCustom(text = text)
+        }
+
+    )
+}
+
+@Composable
+fun TextCustom(
+    modifier: Modifier = Modifier,
+    text: String,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontSize: TextUnit = TextUnit.Unspecified
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.primary,
+        fontWeight = fontWeight,
+        fontSize = fontSize
+    )
+}
+@Composable
+private fun OutlinedTextFieldCustom(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: @Composable (() -> Unit)? = null,
+    paddingDefault: Dp = Dimens.paddingDefault,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = paddingDefault),
+        label = label,
+        colors = TextFieldDefaults.outlinedTextFieldPrimaryColors()
+    )
+}
+
+@Composable
+fun TextFieldDefaults.outlinedTextFieldPrimaryColors(): TextFieldColors {
+    val primaryColor = MaterialTheme.colorScheme.primary
+    return outlinedTextFieldColors(
+        textColor = primaryColor,
+        focusedBorderColor = primaryColor,
+        unfocusedBorderColor = primaryColor,
+        cursorColor = primaryColor,
+        focusedLabelColor = primaryColor,
+        unfocusedLabelColor = primaryColor,
+        placeholderColor = primaryColor
+    )
 }
 
 
@@ -270,7 +319,7 @@ fun DynamicLinkList(viewModel: UpsertCurioteBaseViewModel) {
 
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         item {
-            Text(text = "Add Links", style = MaterialTheme.typography.h6)
+            Text(text = "Add Links", style = MaterialTheme.typography.titleLarge)
         }
 
         items(linkList.size) { index ->

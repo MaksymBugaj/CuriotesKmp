@@ -26,8 +26,8 @@ interface CurioteDao :BaseDao<CurioteEntity>{
 
 
     @Transaction
-    @Query("Select * from curiotes c inner join curiote_links as cl on c.id == cl.curioteId where c.id = :id")
-    suspend fun getCurioteById(id: Int): CurioteFull
+    @Query("Select * from curiotes c left join curiote_links as cl on c.id = cl.curioteId where c.id = :id")
+    suspend fun getCurioteById(id: Long): CurioteFull
 
     @Transaction
     @Query("" +

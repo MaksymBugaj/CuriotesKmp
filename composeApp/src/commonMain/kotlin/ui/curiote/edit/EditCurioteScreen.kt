@@ -12,7 +12,7 @@ import ui.curiote.create.CurioteContent
 fun EditCurioteScreen(
     viewModel: EditCurioteViewModel,
     navigateUp: () -> Unit,
-    curioteId: Int
+    curioteId: Long
 ) {
     val curioteTitle by viewModel.curioteTitle.collectAsState()
     val curioteDescription by viewModel.curioteDescription.collectAsState()

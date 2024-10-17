@@ -1,5 +1,6 @@
 
 import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,7 +21,9 @@ import ui.theme.AppTheme
 fun App() {
     AppTheme {
         KoinContext {
-            Surface {
+            Surface(
+                color = MaterialTheme.colorScheme.surface
+            ) {
                 NavigationHost()
             }
         }
@@ -61,7 +64,7 @@ fun NavigationHost() {
                 }
             )
         ){ navBackStackEntry ->
-            val curioteId = navBackStackEntry.arguments?.getInt("curioteId")
+            val curioteId = navBackStackEntry.arguments?.getLong("curioteId", -1L)
             println("CurioteId to pass in navigation::: $curioteId")
 //            println("NavBackStack: ${navController.currentBackStack.value.size}")
 //            println("NavBackStack: ${navController.currentBackStack.value}")

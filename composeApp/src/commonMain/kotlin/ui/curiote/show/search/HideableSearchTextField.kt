@@ -12,11 +12,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import curioteskmp.composeapp.generated.resources.delete
 import curioteskmp.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import ui.curiote.create.outlinedTextFieldPrimaryColors
 import ui.theme.Dimens
 
 @OptIn(ExperimentalResourceApi::class)
@@ -49,6 +52,7 @@ fun HideableSearchTextField(
                 value = text,
                 onValueChange = onTextChange,
                 shape = RoundedCornerShape(Dimens.roundedCornerSize),
+                colors = TextFieldDefaults.outlinedTextFieldPrimaryColors(),
                 placeholder = { Text(text = stringResource(Res.string.search)) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -65,7 +69,8 @@ fun HideableSearchTextField(
                 IconButton(onClick = onCloseClick) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close search"
+                        contentDescription = "Close search",
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -77,12 +82,14 @@ fun HideableSearchTextField(
                 IconButton(onClick = onSearchClick) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Open search"
+                        contentDescription = "Open search",
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
             IconButton(onClick = onFilterClick) {
-                Icon(imageVector = Icons.Default.Share, contentDescription = "Filter")
+                Icon(imageVector = Icons.Default.Share, contentDescription = "Filter",
+                    tint = MaterialTheme.colorScheme.primary)
             }
         }
     }

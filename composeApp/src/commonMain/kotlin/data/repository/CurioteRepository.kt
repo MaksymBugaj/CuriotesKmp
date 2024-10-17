@@ -64,7 +64,7 @@ class CurioteRepositoryImpl(
         return curioteDao.getOnlyCuriotes()
     }
 
-    override suspend fun getCurioteById(id: Int): Curiote {
+    override suspend fun getCurioteById(id: Long): Curiote {
         return curioteMapper.mapToDomain(curioteDao.getCurioteById(id))
     }
 

@@ -14,7 +14,7 @@ interface CurioteRepository {
 
     fun getCurioteEntity(): Flow<List<CurioteEntity>>
 
-    suspend fun getCurioteById(id: Int): Curiote
+    suspend fun getCurioteById(id: Long): Curiote
 
     fun searchCurioteByQuery(query: String, sortByDateModified: Boolean, sortByDone: Boolean): Flow<List<Curiote>>
 }
