@@ -6,8 +6,12 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import curioteskmp.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import ui.curiote.create.CurioteContent
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun EditCurioteScreen(
     viewModel: EditCurioteViewModel,
@@ -48,6 +52,7 @@ fun EditCurioteScreen(
             onDescriptionChange = viewModel::setCurioteDescription,
             onLinkChange = viewModel::setCurioteLink,
             onCheckLaterChange = viewModel::setDetailedExplanation,
+            titleText = stringResource(Res.string.edit_curiote),
             deleteButtonVisible = true,
             onDeleteClick = {
                 viewModel.deleteCuriote(curioteModel)

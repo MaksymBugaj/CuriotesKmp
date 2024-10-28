@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
@@ -28,6 +28,7 @@ import curioteskmp.composeapp.generated.resources.delete
 import curioteskmp.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import ui.curiote.create.TextCustom
 import ui.curiote.create.outlinedTextFieldPrimaryColors
 import ui.theme.Dimens
 
@@ -52,8 +53,8 @@ fun HideableSearchTextField(
                 value = text,
                 onValueChange = onTextChange,
                 shape = RoundedCornerShape(Dimens.roundedCornerSize),
-                colors = TextFieldDefaults.outlinedTextFieldPrimaryColors(),
-                placeholder = { Text(text = stringResource(Res.string.search)) },
+                colors = outlinedTextFieldPrimaryColors(),
+                placeholder = { TextCustom(text = stringResource(Res.string.search)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(Dimens.paddingLarge)

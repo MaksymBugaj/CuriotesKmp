@@ -17,20 +17,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldColors
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
+
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -165,8 +165,6 @@ fun CurioteContent(
             )
         }
         Spacer(modifier = Modifier.height(paddingDefault))
-        //DynamicLinkList(viewModel)
-
     }
 }
 
@@ -191,8 +189,8 @@ fun CustomOutlinedButton(
 
 @Composable
 fun TextCustom(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
     fontWeight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = TextUnit.Unspecified
 ) {
@@ -218,21 +216,21 @@ private fun OutlinedTextFieldCustom(
             .fillMaxWidth()
             .padding(top = paddingDefault),
         label = label,
-        colors = TextFieldDefaults.outlinedTextFieldPrimaryColors()
+        colors = outlinedTextFieldPrimaryColors()
     )
 }
 
 @Composable
-fun TextFieldDefaults.outlinedTextFieldPrimaryColors(): TextFieldColors {
+fun outlinedTextFieldPrimaryColors(): TextFieldColors {
     val primaryColor = MaterialTheme.colorScheme.primary
-    return outlinedTextFieldColors(
-        textColor = primaryColor,
+    return OutlinedTextFieldDefaults.colors(
+        focusedTextColor = primaryColor,
         focusedBorderColor = primaryColor,
         unfocusedBorderColor = primaryColor,
         cursorColor = primaryColor,
         focusedLabelColor = primaryColor,
-        unfocusedLabelColor = primaryColor,
-        placeholderColor = primaryColor
+        unfocusedPlaceholderColor = primaryColor,
+        focusedPlaceholderColor = primaryColor
     )
 }
 
@@ -297,7 +295,7 @@ fun SectionWithRoundedBottom(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(16.dp),
                     tint = Color(0xFF6200EE) // Fioletowy kolor
                 )
                 Spacer(modifier = Modifier.width(8.dp))
