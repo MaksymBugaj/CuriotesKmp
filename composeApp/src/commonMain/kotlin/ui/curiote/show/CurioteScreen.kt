@@ -4,14 +4,12 @@ import CurioteViewModel
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,33 +17,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Scaffold
-
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-
-import androidx.compose.material.icons.filled.Notifications
-
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -59,25 +46,22 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.benasher44.uuid.Uuid
 import curioteskmp.composeapp.generated.resources.Res
 import curioteskmp.composeapp.generated.resources.curiotes
 import domain.curiote.Curiote
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
-import kotlinx.datetime.format
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import ui.curiote.create.TextCustom
 import ui.curiote.show.search.HideableSearchTextField
 import ui.theme.Dimens
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CurioteScreen(
     viewModel: CurioteViewModel,
@@ -95,23 +79,6 @@ fun CurioteScreen(
     val sortByDone by viewModel.sortByDone.collectAsState(initial = false)
 
     Scaffold(
-        floatingActionButton = {
-            androidx.compose.material3.FloatingActionButton(
-                onClick = onCreateCurioteClick,
-                shape = RoundedCornerShape(Dimens.paddingSemiLarge),
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                elevation = FloatingActionButtonDefaults.elevation(
-                    defaultElevation = 4.dp,
-                    pressedElevation = 8.dp
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add curiote",
-                    tint = Color.White
-                )
-            }
-        },
         backgroundColor = MaterialTheme.colorScheme.surface,
         floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
@@ -311,10 +278,10 @@ fun CurioteItem(
                         )
                         if (curioteLink.link.lowercase().contains("http")) {
                             Icon(
-                                    imageVector = Icons.Outlined.Notifications,
-                                    contentDescription = "Action Required",
-                                    tint = MaterialTheme.colorScheme.error,
-                                )
+                                imageVector = Icons.Outlined.Notifications,
+                                contentDescription = "Action Required",
+                                tint = MaterialTheme.colorScheme.error,
+                            )
                         }
                     }
                 }
@@ -327,13 +294,14 @@ fun CurioteItem(
 
             ) {
 
-                Box(modifier = Modifier
-                    .height(30.dp)
-                    .width(2.dp)
-                    .clip(
-                        RoundedCornerShape(2.dp)
-                    )
-                    .background(MaterialTheme.colorScheme.onPrimaryContainer)
+                Box(
+                    modifier = Modifier
+                        .height(30.dp)
+                        .width(2.dp)
+                        .clip(
+                            RoundedCornerShape(2.dp)
+                        )
+                        .background(MaterialTheme.colorScheme.onPrimaryContainer)
                 )
 
                 Column(modifier = Modifier.padding(start = Dimens.paddingDefault)) {

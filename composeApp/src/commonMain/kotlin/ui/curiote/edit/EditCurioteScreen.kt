@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import curioteskmp.composeapp.generated.resources.Res
+import curioteskmp.composeapp.generated.resources.edit_curiote
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import ui.curiote.create.CurioteContent

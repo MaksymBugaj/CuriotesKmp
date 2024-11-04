@@ -1,7 +1,7 @@
 package bussar.curiotes
 
-import android.app.Application
 import KoinInitializer
+import android.app.Application
 
 class App: Application() {
 

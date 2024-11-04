@@ -1,8 +1,8 @@
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import data.db.CurioteDatabase
-import org.koin.dsl.module
 import data.db.instantiateImpl
+import org.koin.dsl.module
 import platform.Foundation.NSHomeDirectory
 
 actual val databaseModule = module {
