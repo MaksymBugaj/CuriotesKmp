@@ -12,7 +12,6 @@ import domain.curiote.Curiote
 import domain.repository.CurioteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -27,12 +26,10 @@ class CurioteRepositoryImpl(
     override suspend fun upsert(curiote: Curiote) {
         withContext(Dispatchers.IO) {
             try {
-
                 val curioteId = curioteDao.insertReturnId(curioteMapper.mapToData(curiote).curioteEntity)
                 val links = curiote.links?.map { link ->
                     curioteLinkMapper.mapToData(link, curioteId)
                 }
-                println("#NOPE: links:$links")
                 links?.let { curioteLinkDao.insert(it) }
 
             } catch (e: SQLiteException) {
@@ -64,19 +61,19 @@ class CurioteRepositoryImpl(
         return curioteDao.getOnlyCuriotes()
     }
 
-    override suspend fun getCurioteById(id: Int): Curiote {
+    override suspend fun getCurioteById(id: Long): Curiote {
         return curioteMapper.mapToDomain(curioteDao.getCurioteById(id))
     }
 
     override fun searchCurioteByQuery(query: String, sortByDateModified: Boolean, sortByDone: Boolean): Flow<List<Curiote>> {
         return flow {
-            curioteDao.getCurioteByQuery(
+            emit(curioteDao.getCurioteByQuery(
                 query = query,
                 sortByDateModified = sortByDateModified,
                 sortByDone = sortByDone
             ).map { curiotes ->
                     curioteMapper.mapToDomain(curiotes)
-            }
+            })
         }
     }
 }

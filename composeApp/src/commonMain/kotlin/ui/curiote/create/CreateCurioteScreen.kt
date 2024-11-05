@@ -17,33 +17,34 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
+
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import curioteskmp.composeapp.generated.resources.Res
@@ -111,40 +112,25 @@ fun CurioteContent(
             .fillMaxSize()
             .padding(paddingDefault)
     ) {
-        Text(text = titleText)
-        //if (showError) ErrorToast()
-        OutlinedTextField(
+        TextCustom(
+            text = titleText,
+            )
+        OutlinedTextFieldCustom(
             value = curioteTitle,
             onValueChange = onTitleChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = paddingDefault),
             label = { Text(text = stringResource(Res.string.title)) }
         )
-        OutlinedTextField(
+        OutlinedTextFieldCustom(
             value = curioteDescription,
             onValueChange = onDescriptionChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = paddingDefault),
             label = { Text(text = stringResource(Res.string.description)) }
         )
-        OutlinedTextField(
+        OutlinedTextFieldCustom(
             value = curioteLink,
             onValueChange = onLinkChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = paddingDefault),
-            label = { Text(text = stringResource(Res.string.link)) }
+            label = { Text(text = stringResource(Res.string.link)) },
+            paddingDefault
         )
-//        OutlinedTextField(
-//            value = noteLink,
-//            onValueChange = viewModel::setCurioteLink,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(top = Dimens.Padding.paddingDefault),
-//            label = { Text(text = stringResource(id = R.string.link)) }
-//        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,7 +138,7 @@ fun CurioteContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = stringResource(Res.string.check_later))
+            TextCustom(text = stringResource(Res.string.check_later))
             Switch(
                 checked = needsDetails,
                 onCheckedChange = onCheckLaterChange,
@@ -163,28 +149,95 @@ fun CurioteContent(
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             if(deleteButtonVisible){
-                Button(
+                CustomOutlinedButton(
                     onClick = onDeleteClick,
-                    modifier = Modifier) {
-                    Text(text = stringResource(Res.string.delete))
-                }
+                    modifier = Modifier,
+                    text = stringResource(Res.string.delete))
             }
-            Button(
+            CustomOutlinedButton(
                 onClick = {
                     onSaveClick()
                 },
-                modifier = Modifier
-            ) {
-                Text(text = stringResource(Res.string.save))
-            }
+                modifier = Modifier,
+                text = stringResource(Res.string.save)
+            )
         }
         Spacer(modifier = Modifier.height(paddingDefault))
-        //DynamicLinkList(viewModel)
-
     }
+}
+
+@Composable
+fun CustomOutlinedButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick:() -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MaterialTheme.colorScheme.primary
+        ),
+        content = {
+            TextCustom(text = text)
+        }
+
+    )
+}
+
+@Composable
+fun TextCustom(
+    text: String,
+    modifier: Modifier = Modifier,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.primary,
+        fontWeight = fontWeight,
+        fontSize = fontSize,
+        maxLines = maxLines,
+        overflow = overflow
+
+    )
+}
+@Composable
+private fun OutlinedTextFieldCustom(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: @Composable (() -> Unit)? = null,
+    paddingDefault: Dp = Dimens.paddingDefault,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = paddingDefault),
+        label = label,
+        colors = outlinedTextFieldPrimaryColors()
+    )
+}
+
+@Composable
+fun outlinedTextFieldPrimaryColors(): TextFieldColors {
+    val primaryColor = MaterialTheme.colorScheme.primary
+    return OutlinedTextFieldDefaults.colors(
+        focusedTextColor = primaryColor,
+        focusedBorderColor = primaryColor,
+        unfocusedBorderColor = primaryColor,
+        cursorColor = primaryColor,
+        focusedLabelColor = primaryColor,
+        unfocusedPlaceholderColor = primaryColor,
+        focusedPlaceholderColor = primaryColor
+    )
 }
 
 
@@ -248,7 +301,7 @@ fun SectionWithRoundedBottom(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(16.dp),
                     tint = Color(0xFF6200EE) // Fioletowy kolor
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -270,7 +323,7 @@ fun DynamicLinkList(viewModel: UpsertCurioteBaseViewModel) {
 
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         item {
-            Text(text = "Add Links", style = MaterialTheme.typography.h6)
+            Text(text = "Add Links", style = MaterialTheme.typography.titleLarge)
         }
 
         items(linkList.size) { index ->

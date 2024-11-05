@@ -1,15 +1,10 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.benasher44.uuid.uuid4
-import data.db.dao.CurioteDao
-import data.db.entity.CurioteEntity
 import domain.curiote.Curiote
 import domain.curiote.curioteLink.CurioteLink
 import domain.repository.CurioteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock

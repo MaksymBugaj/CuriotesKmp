@@ -1,6 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -58,6 +55,7 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.uuid)
+            implementation(compose.material3)
         }
 
     }
@@ -75,8 +73,8 @@ android {
         applicationId = "bussar.curiotes"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "0.1"
     }
     packaging {
         resources {
@@ -103,5 +101,6 @@ room {
 
 dependencies {
     implementation(libs.identity.jvm)
+    implementation(libs.androidx.material3.android)
     ksp(libs.room.compiler)
 }

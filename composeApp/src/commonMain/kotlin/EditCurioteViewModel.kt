@@ -18,7 +18,7 @@ class EditCurioteViewModel(
     val curiote = _curiote.asStateFlow()
 
 
-    fun restoreCuriote(curioteId: Int) {
+    fun restoreCuriote(curioteId: Long) {
         viewModelScope.launch {
             println("#NOPE: EditCurioteViewModel Launched ")
             curioteRepository.getCurioteById(curioteId).let { curiote ->
