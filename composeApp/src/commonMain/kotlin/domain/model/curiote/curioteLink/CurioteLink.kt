@@ -1,4 +1,4 @@
-package domain.curiote.curioteLink
+package domain.model.curiote.curioteLink
 
 data class CurioteLink(
     val id: Long,

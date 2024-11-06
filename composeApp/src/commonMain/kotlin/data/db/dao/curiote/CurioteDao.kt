@@ -1,11 +1,11 @@
-package data.db.dao
+package data.db.dao.curiote
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import data.db.dao.base.BaseDao
-import data.db.entity.CurioteEntity
+import data.db.entity.curiote.CurioteEntity
 import data.db.entity.full.CurioteFull
 import kotlinx.coroutines.flow.Flow
 

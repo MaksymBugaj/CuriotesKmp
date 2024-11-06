@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import curioteskmp.composeapp.generated.resources.Res
 import curioteskmp.composeapp.generated.resources.curiotes
-import domain.curiote.Curiote
+import domain.model.curiote.Curiote
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month

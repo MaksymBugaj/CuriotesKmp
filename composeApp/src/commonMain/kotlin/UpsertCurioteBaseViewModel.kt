@@ -1,7 +1,7 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import domain.curiote.Curiote
-import domain.curiote.curioteLink.CurioteLink
+import domain.model.curiote.Curiote
+import domain.model.curiote.curioteLink.CurioteLink
 import domain.repository.CurioteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 abstract class UpsertCurioteBaseViewModel(
-    private val curioteRepository: CurioteRepository
+    private val curioteRepository: CurioteRepository,
 ) : ViewModel() {
     private val _curioteTitle = MutableStateFlow("")
     val curioteTitle: StateFlow<String> = _curioteTitle
@@ -41,10 +41,10 @@ abstract class UpsertCurioteBaseViewModel(
     }
 
     fun setCurioteDescription(value: String) {
-        _curioteDescription.update{ value }
+        _curioteDescription.update { value }
     }
 
-    fun setLinksHelper(value: String, index: Int){
+    fun setLinksHelper(value: String, index: Int) {
         //linksHelper.addAll(value)
         linksHelper2[index] = value
     }
@@ -71,11 +71,13 @@ abstract class UpsertCurioteBaseViewModel(
                 toCheck = _needsDetailedExplanation.value,
                 created = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 modified = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
-                links = listOf(CurioteLink(
-                    id = 0L,
-                    link = _curioteLink.value
-                )
-                )
+                links = listOf(
+                    CurioteLink(
+                        id = 0L,
+                        link = _curioteLink.value
+                    )
+                ),
+                priority = 0
             )
 
             viewModelScope.launch {

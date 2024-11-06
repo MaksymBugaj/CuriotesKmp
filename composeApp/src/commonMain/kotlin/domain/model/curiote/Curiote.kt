@@ -1,6 +1,6 @@
-package domain.curiote
+package domain.model.curiote
 
-import domain.curiote.curioteLink.CurioteLink
+import domain.model.curiote.curioteLink.CurioteLink
 import kotlinx.datetime.LocalDateTime
 
 
@@ -11,5 +11,6 @@ data class Curiote(
     val toCheck: Boolean,
     val created: LocalDateTime,
     val modified: LocalDateTime,
-    val links: List<CurioteLink>?
+    val links: List<CurioteLink>?,
+    val priority: Int
 )

@@ -1,7 +1,7 @@
 package domain.repository
 
-import data.db.entity.CurioteEntity
-import domain.curiote.Curiote
+import data.db.entity.curiote.CurioteEntity
+import domain.model.curiote.Curiote
 import kotlinx.coroutines.flow.Flow
 
 interface CurioteRepository {
