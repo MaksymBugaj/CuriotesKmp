@@ -11,14 +11,14 @@ import data.db.dao.curiote.CurioteLinkDao
 import data.db.entity.category.CurioteCategoryEntity
 import data.db.entity.curiote.CurioteEntity
 import data.db.entity.curiote.CurioteLinkEntity
-import data.db.entity.full.CurioteCategoryCombined
+import data.db.entity.full.CurioteCategoryCombinedEntity
 
 @Database(
     entities = [
         CurioteEntity::class,
         CurioteLinkEntity::class,
         CurioteCategoryEntity::class,
-        CurioteCategoryCombined::class
+        CurioteCategoryCombinedEntity::class
                ],
     version = DatabaseHelper.DATABASE_VERSION
 )

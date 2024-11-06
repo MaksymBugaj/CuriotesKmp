@@ -8,7 +8,7 @@ import androidx.room.Entity
         "curioteId", "curioteCategoryId"
     ]
 )
-data class CurioteCategoryCombined(
+data class CurioteCategoryCombinedEntity(
     val curioteId: Long,
     val curioteCategoryId: Long
 )
