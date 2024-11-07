@@ -146,6 +146,7 @@ fun CurioteContent(
 
                 )
         }
+        //fixme this should be changed in another task to match the better ux. I propose to make one big save button and below with red text delete.
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -165,6 +166,8 @@ fun CurioteContent(
                 text = stringResource(Res.string.save)
             )
         }
+        //todo here add category selector as a selectable list
+
         Spacer(modifier = Modifier.height(paddingDefault))
     }
 }
@@ -209,7 +212,7 @@ fun TextCustom(
     )
 }
 @Composable
-private fun OutlinedTextFieldCustom(
+fun OutlinedTextFieldCustom(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable (() -> Unit)? = null,

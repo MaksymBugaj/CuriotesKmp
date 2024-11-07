@@ -1,5 +1,6 @@
 package ui.navigation
 
+import CreateCategoryViewModel
 import CreateCurioteViewModel
 import CurioteViewModel
 import EditCurioteViewModel
@@ -21,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.koin.compose.currentKoinScope
+import ui.curiote.category.CreateCategoryScreen
 import ui.curiote.create.CreateCurioteScreen
 import ui.curiote.create.TextCustom
 import ui.curiote.edit.EditCurioteScreen
@@ -35,10 +37,11 @@ fun MainView() {
         NavigationHost(navController = navController, modifier = Modifier.padding(innerPadding))
     }
 }
+
 @Composable
 fun NavigationHost(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     NavHost(
         navController = navController,
@@ -80,12 +83,18 @@ fun NavigationHost(
                 })
             }
         }
-        composable(route = NavItem.Explore.screenRoute){
+        composable(route = NavItem.Explore.screenRoute) {
             //todo ExploreScreen()
         }
 
-        composable(route = NavItem.Categories.screenRoute){
+        composable(route = NavItem.Categories.screenRoute) {
             //todo CategoriesScreen()
+        }
+        composable(route = NavItem.CreateCategories.screenRoute) {
+            val viewModel = koinViewModel<CreateCategoryViewModel>()
+            CreateCategoryScreen(viewModel) {
+                navController.navigateUp()
+            }
         }
     }
 }
@@ -103,13 +112,21 @@ fun BottomNavigatonBar(navController: NavHostController) {
     ) {
         screens.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(screen.icon, contentDescription = screen.title, tint = MaterialTheme.colorScheme.primary) },
-                label = { TextCustom(
-                    text = screen.title,
-                    modifier = Modifier.wrapContentSize(),
-                    fontSize = MaterialTheme.typography.labelMedium.fontSize,
-                    maxLines = 1
-                ) },
+                icon = {
+                    Icon(
+                        screen.icon,
+                        contentDescription = screen.title,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                },
+                label = {
+                    TextCustom(
+                        text = screen.title,
+                        modifier = Modifier.wrapContentSize(),
+                        fontSize = MaterialTheme.typography.labelMedium.fontSize,
+                        maxLines = 1
+                    )
+                },
                 selected = navController.currentDestination?.route == screen.screenRoute,
                 onClick = {
                     navController.navigate(screen.screenRoute) {

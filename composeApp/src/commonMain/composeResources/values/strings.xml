@@ -10,5 +10,6 @@
     <string name="create_curiote">Create Curiote</string>
     <string name="edit_curiote">Edit Curiote</string>
     <string name="curiotes">Curiotes</string>
+    <string name="create_category">Create Category</string>
 
 </resources>

@@ -7,18 +7,18 @@ import domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 
 class CategoryRepositoryImpl (
-    categoryDao: CategoryDao,
-    categoryMapper: CategoryMapper
+    private val categoryDao: CategoryDao,
+    private val categoryMapper: CategoryMapper
 ): CategoryRepository {
-    override fun createCategory(category: Category) {
+    override suspend fun createCategory(category: Category) {
+        categoryDao.insert(categoryMapper.mapToData(category))
+    }
+
+    override suspend fun updateCategory(category: Category) {
         TODO("Not yet implemented")
     }
 
-    override fun updateCategory(category: Category) {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteCategory(category: Category) {
+    override suspend fun deleteCategory(category: Category) {
         TODO("Not yet implemented")
     }
 

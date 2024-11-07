@@ -5,4 +5,6 @@ actual val viewModelModule = module {
     viewModelOf(::CreateCurioteViewModel)
     viewModelOf(::CurioteViewModel)
     viewModelOf(::EditCurioteViewModel)
+    viewModelOf(::CategoryViewModel)
+    viewModelOf(::CreateCategoryViewModel)
 }
