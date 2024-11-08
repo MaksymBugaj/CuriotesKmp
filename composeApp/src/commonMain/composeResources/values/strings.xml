@@ -11,5 +11,6 @@
     <string name="edit_curiote">Edit Curiote</string>
     <string name="curiotes">Curiotes</string>
     <string name="create_category">Create Category</string>
+    <string name="empty_categories">Oooops! Looks like you don't have any categories yet.</string>
 
 </resources>

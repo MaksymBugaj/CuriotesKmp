@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import curioteskmp.composeapp.generated.resources.Res
+import curioteskmp.composeapp.generated.resources.create_category
 import curioteskmp.composeapp.generated.resources.create_curiote
 import curioteskmp.composeapp.generated.resources.save
 import org.jetbrains.compose.resources.ExperimentalResourceApi

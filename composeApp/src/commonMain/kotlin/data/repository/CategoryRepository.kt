@@ -5,6 +5,7 @@ import data.mapper.category.CategoryMapper
 import domain.model.category.Category
 import domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class CategoryRepositoryImpl (
     private val categoryDao: CategoryDao,
@@ -22,9 +23,13 @@ class CategoryRepositoryImpl (
         TODO("Not yet implemented")
     }
 
-    override fun getCategories(): Flow<List<Category>> {
-        TODO("Not yet implemented")
-    }
+    override fun getCategories(): Flow<List<Category>> =
+        categoryDao.getAllCategories().map { categories ->
+            categories.map {category ->
+                categoryMapper.mapToDomain(category)
+            }
+        }
+
 
     override suspend fun getCategory(id: Int): Category {
         TODO("Not yet implemented")

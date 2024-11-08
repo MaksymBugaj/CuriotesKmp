@@ -1,5 +1,6 @@
 package ui.navigation
 
+import CategoryViewModel
 import CreateCategoryViewModel
 import CreateCurioteViewModel
 import CurioteViewModel
@@ -22,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.koin.compose.currentKoinScope
+import ui.curiote.category.CategoriesScreen
 import ui.curiote.category.CreateCategoryScreen
 import ui.curiote.create.CreateCurioteScreen
 import ui.curiote.create.TextCustom
@@ -88,7 +90,16 @@ fun NavigationHost(
         }
 
         composable(route = NavItem.Categories.screenRoute) {
-            //todo CategoriesScreen()
+            val categoryViewModel = koinViewModel<CategoryViewModel>()
+            CategoriesScreen(
+                categoryViewModel = categoryViewModel,
+                onCreateCategoryClick = {
+                    navController.navigate(NavItem.CreateCategories.screenRoute)
+                },
+                onAssignCategoryClick = {
+                    //todo
+                }
+            )
         }
         composable(route = NavItem.CreateCategories.screenRoute) {
             val viewModel = koinViewModel<CreateCategoryViewModel>()
