@@ -98,6 +98,9 @@ fun NavigationHost(
                 },
                 onAssignCategoryClick = {
                     //todo
+                },
+                onCategoryItemClick = {
+
                 }
             )
         }

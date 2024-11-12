@@ -1,19 +1,26 @@
 package ui.curiote.category
 
 import CategoryViewModel
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Divider
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import curioteskmp.composeapp.generated.resources.Res
 import curioteskmp.composeapp.generated.resources.create_category
 import curioteskmp.composeapp.generated.resources.empty_categories
@@ -35,6 +42,7 @@ fun CategoriesScreen(
     categoryViewModel: CategoryViewModel,
     onCreateCategoryClick: () -> Unit,
     onAssignCategoryClick: () -> Unit,
+    onCategoryItemClick: (category: Category) -> Unit
 ) {
     val categories by categoryViewModel.categories.collectAsState()
     val curiotesCombined by categoryViewModel.curiotesCombined.collectAsState()
@@ -43,32 +51,61 @@ fun CategoriesScreen(
     if (categories.isEmpty()) {
         EmptyCategories(onCreateCategoryClick = onCreateCategoryClick)
     } else {
-        CategoriesView(categories = categories, curiotesCombined = curiotesCombined)
+        CategoriesView(
+            categories = categories,
+            curiotesCombined = curiotesCombined,
+            onCategoryItemClick = onCategoryItemClick
+            )
     }
 
 
 }
 
+/**
+ * if curiotesCombined is empty, show a view that will display smt like:
+ * You need to add curiotes to categories, do it "there" or go to the curiote screen and edit each curiote
+ * "There" redirects to the screen where user selects a category and can select curiotes, and "go" redirects to the curiote screen
+ */
 @Composable
 fun CategoriesView(
     categories: List<Category>,
     curiotesCombined: List<Pair<Category, List<Curiote>>>,
+    onCategoryItemClick: (category: Category) -> Unit,
 ) {
 
+    if(curiotesCombined.isEmpty())
+
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = Dimens.paddingXXXXLarge)
+        columns = GridCells.Adaptive(minSize = Dimens.gridItemMinSize)
     ) {
-        items(10) {
-            CategoryItem(iterator = it)
+        items(curiotesCombined) { item ->
+            CategoryItem(item) {
+
+            }
         }
     }
 }
 
 @Composable
-fun CategoryItem(iterator: Int) {
-    Card {
-        Column {
-            TextCustom(text = "Category $iterator")
+fun EmptyCategoriesScreen(modifier: Modifier = Modifier) {
+
+}
+
+@Composable
+fun CategoryItem(
+    categoryCombined: Pair<Category, List<Curiote>>,
+    onCategoryItemClick: (category: Category) -> Unit,
+
+    ) {
+    Card(
+        modifier = Modifier.padding(Dimens.paddingDefault),
+        border = BorderStroke(Dimens.dividerThickness,color = MaterialTheme.colorScheme.onPrimaryContainer)
+    ) {
+        Column (modifier = Modifier.padding(Dimens.paddingDefault)){
+            TextCustom(text = "Category: ${categoryCombined.first.name}", fontWeight = FontWeight.Bold)
+            Divider(color = MaterialTheme.colorScheme.primary, thickness = Dimens.dividerThickness)
+            Spacer(modifier = Modifier.height(Dimens.paddingLarge))
+            TextCustom(text = "Curiotes: ${categoryCombined.second.size}")
         }
     }
 }

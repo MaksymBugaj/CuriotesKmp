@@ -38,9 +38,11 @@ class CategoryViewModel (
      */
     private fun loadAllCategories() {
         viewModelScope.launch {
-            categoryRepository.getCategories().onEach { categories ->
+            println("#NOPE: GET CATEGORIES")
+            categoryRepository.getCategories().collect { categories ->
                 _categories.value = categories
-                loadCategoryCurioteCombined()
+                println("#NOPE: GET CATEGORIES:: $categories")
+                //loadCategoryCurioteCombined()
             }
         }
     }
