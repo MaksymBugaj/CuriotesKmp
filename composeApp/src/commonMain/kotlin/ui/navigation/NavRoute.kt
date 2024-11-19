@@ -7,6 +7,7 @@ object NavRoute {
     const val EXPLORE = "ExploreScreen"
     const val CATEGORIES = "CategoriesScreen"
     const val CREATE_CATEGORIES = "CreateCategoriesScreen"
+    const val BULK_ASSIGN = "BulkAssignScreen"
 
 }
 
@@ -17,4 +18,6 @@ object NavItemName {
     const val EXPLORE_ITEM_NAME = "Explore"
     const val CATEGORIES_ITEM_NAME = "Categories"
     const val CREATE_CATEGORIES_ITEM_NAME = "CreateCategories"
+    const val BULK_ASSIGN_ITEM_NAME = "BulkAssign"
+
 }

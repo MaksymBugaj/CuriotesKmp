@@ -23,8 +23,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.koin.compose.currentKoinScope
-import ui.curiote.category.CategoriesScreen
-import ui.curiote.category.CreateCategoryScreen
+import ui.category.CategoriesScreen
+import ui.category.CreateCategoryScreen
 import ui.curiote.create.CreateCurioteScreen
 import ui.curiote.create.TextCustom
 import ui.curiote.edit.EditCurioteScreen
@@ -96,13 +96,19 @@ fun NavigationHost(
                 onCreateCategoryClick = {
                     navController.navigate(NavItem.CreateCategories.screenRoute)
                 },
-                onAssignCategoryClick = {
-                    //todo
+                onBulkAssignClick = {
+                    navController.navigate(NavItem.BulkAssign.screenRoute)
                 },
                 onCategoryItemClick = {
 
+                },
+                onManualAssignClick = {
+                    navController.navigateUp()
                 }
             )
+        }
+        composable(route = NavItem.BulkAssign.screenRoute) {
+
         }
         composable(route = NavItem.CreateCategories.screenRoute) {
             val viewModel = koinViewModel<CreateCategoryViewModel>()

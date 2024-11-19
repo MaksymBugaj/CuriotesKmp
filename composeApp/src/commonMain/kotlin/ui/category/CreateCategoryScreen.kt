@@ -1,6 +1,5 @@
-package ui.curiote.category
+package ui.category
 
-import CategoryViewModel
 import CreateCategoryViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import curioteskmp.composeapp.generated.resources.Res
 import curioteskmp.composeapp.generated.resources.create_category
-import curioteskmp.composeapp.generated.resources.create_curiote
 import curioteskmp.composeapp.generated.resources.save
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

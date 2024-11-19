@@ -12,5 +12,13 @@
     <string name="curiotes">Curiotes</string>
     <string name="create_category">Create Category</string>
     <string name="empty_categories">Oooops! Looks like you don't have any categories yet.</string>
+    <string name="stay_button_text">Stay</string>
+    <string name="move_button_text">Move</string>
+    <string name="confirm_button_text">Confirm</string>
+    <string name="dismiss_button_text">Dismiss</string>
+    <string name="dialog_title_no_curiotes_combined">No Connected Categories</string>
+    <string name="dialog_description_no_curiotes_combined">Currently, no categories are connected to your curiotes. You can assign categories manually or in bulk.</string>
+    <string name="bulk_button_text">Bulk</string>
+    <string name="manual_button_text">Manual</string>
 
 </resources>

@@ -14,7 +14,7 @@ actual val databaseModule = module {
             name = dbFile.absolutePath
         )
             .fallbackToDestructiveMigration(true)
-            .setDriver(BundledSQLiteDriver())
+            //.setDriver(BundledSQLiteDriver())
             .addMigrations(*DatabaseHelper.getMigrations())
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()

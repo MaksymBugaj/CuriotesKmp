@@ -15,5 +15,7 @@ sealed class NavItem(val title: String, val screenRoute: String, val icon: Image
     data object Explore : NavItem(title = NavItemName.EXPLORE_ITEM_NAME, screenRoute = NavRoute.EXPLORE, icon = Icons.Default.Search)
     data object Categories : NavItem(title = NavItemName.CATEGORIES_ITEM_NAME, screenRoute = NavRoute.CATEGORIES, icon = Icons.Default.Place)
     data object CreateCategories : NavItem(title = NavItemName.CREATE_CATEGORIES_ITEM_NAME, screenRoute = NavRoute.CREATE_CATEGORIES, icon = Icons.Default.Place)
+
+    data object BulkAssign : NavItem(title = NavItemName.BULK_ASSIGN_ITEM_NAME, screenRoute = NavRoute.BULK_ASSIGN, icon = Icons.Default.Place)
 }
 
