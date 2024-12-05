@@ -60,6 +60,7 @@ fun CategoriesScreen(
 ) {
     val categories by categoryViewModel.categories.collectAsState()
     val curiotesCombined by categoryViewModel.curiotesCombined.collectAsState()
+    val uiState by categoryViewModel.uiState.collectAsState()
 
 
     if (categories.isEmpty()) {
@@ -74,7 +75,42 @@ fun CategoriesScreen(
             )
     }
 
+    when(val dupa = uiState){
+        CategoriesViewState.DismissEmptyCombinedCategoriesDialogState -> {
 
+        }
+        is CategoriesViewState.DisplayCategoriesCombinedView -> {
+
+        }
+
+        CategoriesViewState.DisplayEmptyCombinedCategoriesDialogState -> {
+
+        }
+        CategoriesViewState.EmptyCategoriesState -> {
+            EmptyCategories(onCreateCategoryClick = onCreateCategoryClick)
+        }
+        CategoriesViewState.EmptyCombinedCategoriesState -> {
+            EmptyCombinedCategoriesAlertDialog(onBulkAssignClick, onManualAssignClick)
+        }
+    }
+
+
+}
+
+@Composable
+fun CategoriesViewStateTest(
+    categories: List<Category>,
+    onCategoryItemClick: (category: Category) -> Unit,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = Dimens.gridItemMinSize)
+    ) {
+        items(categories) { item ->
+            CategoryItem(item) {
+
+            }
+        }
+    }
 }
 
 /**
@@ -95,19 +131,7 @@ fun CategoriesView(
 ) {
 
     if(curiotesCombined.isEmpty()){
-        AlertDialogExample(
-            dialogTitle = stringResource(Res.string.dialog_title_no_curiotes_combined),
-            dialogText = stringResource(Res.string.dialog_description_no_curiotes_combined),
-            icon = Icons.Default.Warning,
-            dismissButtonText = stringResource(Res.string.dismiss_button_text),
-            confirmButtonText = stringResource(Res.string.bulk_button_text),
-            neutralButtonText = stringResource(Res.string.manual_button_text),
-            onConfirmation = onBulkAssignClick,
-            onNeutral = onManualAssignClick,
-            onDismiss = {
-                //todo hide dialog :)
-            }
-        )
+        EmptyCombinedCategoriesAlertDialog(onBulkAssignClick, onManualAssignClick)
     } else {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = Dimens.gridItemMinSize)
@@ -119,6 +143,27 @@ fun CategoriesView(
             }
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalResourceApi::class)
+private fun EmptyCombinedCategoriesAlertDialog(
+    onBulkAssignClick: () -> Unit,
+    onManualAssignClick: () -> Unit,
+) {
+    AlertDialogExample(
+        dialogTitle = stringResource(Res.string.dialog_title_no_curiotes_combined),
+        dialogText = stringResource(Res.string.dialog_description_no_curiotes_combined),
+        icon = Icons.Default.Warning,
+        dismissButtonText = stringResource(Res.string.dismiss_button_text),
+        confirmButtonText = stringResource(Res.string.bulk_button_text),
+        neutralButtonText = stringResource(Res.string.manual_button_text),
+        onConfirmation = onBulkAssignClick,
+        onNeutral = onManualAssignClick,
+        onDismiss = {
+            //todo hide dialog :)
+        }
+    )
 }
 
 @OptIn(ExperimentalResourceApi::class)

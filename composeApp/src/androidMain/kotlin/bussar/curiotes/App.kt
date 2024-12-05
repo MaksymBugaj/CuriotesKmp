@@ -46,6 +46,8 @@ class App: Application() {
  * dodanie wyszukiwania z chatem gtp - ale dopiero po zalogowaniu przez usera
  * możliwość dodawania zdjęć
  * możliwość dodawania notatek głosowych
+ * sprawdzanie kalendarza i wypliwanie ciekawostek o tym miejscu
+ * -wspólna baza ciekawostek dla wszystkich
  *
  *
  *  }

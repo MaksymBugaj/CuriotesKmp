@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.core.KoinApplication.Companion.init
+import ui.category.CategoriesViewState
 
 /**
  * Categories is a grid,
@@ -29,6 +30,9 @@ class CategoryViewModel (
     private val _curiotesCombined = MutableStateFlow<List<Pair<Category, List<Curiote>>>>(emptyList())
     val curiotesCombined: StateFlow<List<Pair<Category, List<Curiote>>>> = _curiotesCombined
 
+    private val _uiState = MutableStateFlow<CategoriesViewState>(CategoriesViewState.EmptyCategoriesState)
+    val uiState: StateFlow<CategoriesViewState> = _uiState
+
     init {
         loadAllCategories()
     }
@@ -40,9 +44,14 @@ class CategoryViewModel (
         viewModelScope.launch {
             println("#NOPE: GET CATEGORIES")
             categoryRepository.getCategories().collect { categories ->
+                if(categories.isEmpty()){
+                    updateUiState(CategoriesViewState.EmptyCategoriesState)
+                } else {
+                    updateUiState(CategoriesViewState.DisplayCategoriesView(categories))
+                }
                 _categories.value = categories
                 println("#NOPE: GET CATEGORIES:: $categories")
-                //loadCategoryCurioteCombined()
+                //fixme -> loadCategoryCurioteCombined()
             }
         }
     }
@@ -61,6 +70,10 @@ class CategoryViewModel (
 
         }
 
+    }
+
+    private fun updateUiState(value: CategoriesViewState){
+        _uiState.value = value
     }
 
 }

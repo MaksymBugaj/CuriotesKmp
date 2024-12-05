@@ -5,6 +5,7 @@ import CreateCategoryViewModel
 import CreateCurioteViewModel
 import CurioteViewModel
 import EditCurioteViewModel
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.BottomNavigation
@@ -89,7 +90,9 @@ fun NavigationHost(
             //todo ExploreScreen()
         }
 
-        composable(route = NavItem.Categories.screenRoute) {
+        composable(
+            route = NavItem.Categories.screenRoute,
+            ) {
             val categoryViewModel = koinViewModel<CategoryViewModel>()
             CategoriesScreen(
                 categoryViewModel = categoryViewModel,
