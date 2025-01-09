@@ -99,19 +99,13 @@ fun NavigationHost(
                 onCreateCategoryClick = {
                     navController.navigate(NavItem.CreateCategories.screenRoute)
                 },
-                onBulkAssignClick = {
-                    navController.navigate(NavItem.BulkAssign.screenRoute)
-                },
                 onCategoryItemClick = {
 
                 },
                 onManualAssignClick = {
-                    navController.navigateUp()
+                    navController.navigate(NavItem.Curiotes.screenRoute)
                 }
             )
-        }
-        composable(route = NavItem.BulkAssign.screenRoute) {
-
         }
         composable(route = NavItem.CreateCategories.screenRoute) {
             val viewModel = koinViewModel<CreateCategoryViewModel>()

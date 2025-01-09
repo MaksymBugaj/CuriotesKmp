@@ -47,7 +47,7 @@ class CategoryViewModel (
                 if(categories.isEmpty()){
                     updateUiState(CategoriesViewState.EmptyCategoriesState)
                 } else {
-                    updateUiState(CategoriesViewState.DisplayCategoriesView(categories))
+                    updateUiState(CategoriesViewState.EmptyCombinedCategoriesState(categories, ))
                 }
                 _categories.value = categories
                 println("#NOPE: GET CATEGORIES:: $categories")
