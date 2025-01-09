@@ -1,6 +1,6 @@
 
 import androidx.lifecycle.viewModelScope
-import domain.curiote.Curiote
+import domain.model.curiote.Curiote
 import domain.repository.CurioteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

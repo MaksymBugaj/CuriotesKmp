@@ -11,4 +11,7 @@ object Dimens {
     val paddingXXXXLarge = 60.dp
 
     val roundedCornerSize = 10.dp
+
+    val gridItemMinSize = 100.dp
+    val dividerThickness = 1.dp
 }

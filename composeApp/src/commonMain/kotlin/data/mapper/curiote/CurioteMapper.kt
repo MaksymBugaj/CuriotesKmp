@@ -1,9 +1,9 @@
-package data.mapper
+package data.mapper.curiote
 
-import data.db.entity.CurioteEntity
+import data.db.entity.curiote.CurioteEntity
 import data.db.entity.full.CurioteFull
 import data.mapper.base.DataMapper
-import domain.curiote.Curiote
+import domain.model.curiote.Curiote
 
 class CurioteMapper (
     private val curioteLinkMapper: CurioteLinkMapper
@@ -16,7 +16,8 @@ class CurioteMapper (
                 curiote = domainModel.curiote,
                 toCheck = domainModel.toCheck,
                 created = domainModel.created,
-                modified = domainModel.modified
+                modified = domainModel.modified,
+                priority = domainModel.priority
             ),
             links = domainModel.links?.map{ curioteLink ->
                 curioteLinkMapper.mapToData(curioteLink, domainModel.id)
@@ -34,7 +35,8 @@ class CurioteMapper (
             modified = data.curioteEntity.modified,
             links = data.links?.map{ curioteLinkEntity ->
                 curioteLinkMapper.mapToDomain(curioteLinkEntity)
-            }
+            },
+            priority = data.curioteEntity.priority
         )
     }
 }

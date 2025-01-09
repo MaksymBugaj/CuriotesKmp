@@ -2,8 +2,8 @@ package data.db.entity.full
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import data.db.entity.CurioteEntity
-import data.db.entity.CurioteLinkEntity
+import data.db.entity.curiote.CurioteEntity
+import data.db.entity.curiote.CurioteLinkEntity
 
 data class CurioteFull(
     @Embedded

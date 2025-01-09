@@ -1,4 +1,4 @@
-package data.db.entity
+package data.db.entity.curiote
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,4 +13,5 @@ data class CurioteEntity(
     val toCheck: Boolean,
     val created: LocalDateTime,
     val modified: LocalDateTime,
+    val priority: Int
 )

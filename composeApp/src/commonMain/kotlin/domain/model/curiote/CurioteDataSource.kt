@@ -1,4 +1,4 @@
-package domain.curiote
+package domain.model.curiote
 
 interface CurioteDataSource {
     suspend fun insertCuriote(curiote: Curiote)

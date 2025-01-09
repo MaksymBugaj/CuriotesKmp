@@ -1,8 +1,11 @@
 package ui.navigation
 
+import CategoryViewModel
+import CreateCategoryViewModel
 import CreateCurioteViewModel
 import CurioteViewModel
 import EditCurioteViewModel
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.BottomNavigation
@@ -21,6 +24,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.koin.compose.currentKoinScope
+import ui.category.CategoriesScreen
+import ui.category.CreateCategoryScreen
 import ui.curiote.create.CreateCurioteScreen
 import ui.curiote.create.TextCustom
 import ui.curiote.edit.EditCurioteScreen
@@ -35,10 +40,11 @@ fun MainView() {
         NavigationHost(navController = navController, modifier = Modifier.padding(innerPadding))
     }
 }
+
 @Composable
 fun NavigationHost(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     NavHost(
         navController = navController,
@@ -80,12 +86,32 @@ fun NavigationHost(
                 })
             }
         }
-        composable(route = NavItem.Explore.screenRoute){
+        composable(route = NavItem.Explore.screenRoute) {
             //todo ExploreScreen()
         }
 
-        composable(route = NavItem.Categories.screenRoute){
-            //todo CategoriesScreen()
+        composable(
+            route = NavItem.Categories.screenRoute,
+            ) {
+            val categoryViewModel = koinViewModel<CategoryViewModel>()
+            CategoriesScreen(
+                categoryViewModel = categoryViewModel,
+                onCreateCategoryClick = {
+                    navController.navigate(NavItem.CreateCategories.screenRoute)
+                },
+                onCategoryItemClick = {
+
+                },
+                onManualAssignClick = {
+                    navController.navigate(NavItem.Curiotes.screenRoute)
+                }
+            )
+        }
+        composable(route = NavItem.CreateCategories.screenRoute) {
+            val viewModel = koinViewModel<CreateCategoryViewModel>()
+            CreateCategoryScreen(viewModel) {
+                navController.navigateUp()
+            }
         }
     }
 }
@@ -103,13 +129,21 @@ fun BottomNavigatonBar(navController: NavHostController) {
     ) {
         screens.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(screen.icon, contentDescription = screen.title, tint = MaterialTheme.colorScheme.primary) },
-                label = { TextCustom(
-                    text = screen.title,
-                    modifier = Modifier.wrapContentSize(),
-                    fontSize = MaterialTheme.typography.labelMedium.fontSize,
-                    maxLines = 1
-                ) },
+                icon = {
+                    Icon(
+                        screen.icon,
+                        contentDescription = screen.title,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                },
+                label = {
+                    TextCustom(
+                        text = screen.title,
+                        modifier = Modifier.wrapContentSize(),
+                        fontSize = MaterialTheme.typography.labelMedium.fontSize,
+                        maxLines = 1
+                    )
+                },
                 selected = navController.currentDestination?.route == screen.screenRoute,
                 onClick = {
                     navController.navigate(screen.screenRoute) {

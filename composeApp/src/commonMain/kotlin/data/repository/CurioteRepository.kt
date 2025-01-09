@@ -2,13 +2,13 @@ package data.repository
 
 
 import androidx.sqlite.SQLiteException
-import data.db.dao.CurioteDao
-import data.db.dao.CurioteLinkDao
-import data.db.entity.CurioteEntity
+import data.db.dao.curiote.CurioteDao
+import data.db.dao.curiote.CurioteLinkDao
+import data.db.entity.curiote.CurioteEntity
 import data.db.entity.full.CurioteFull
-import data.mapper.CurioteLinkMapper
-import data.mapper.CurioteMapper
-import domain.curiote.Curiote
+import data.mapper.curiote.CurioteLinkMapper
+import data.mapper.curiote.CurioteMapper
+import domain.model.curiote.Curiote
 import domain.repository.CurioteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

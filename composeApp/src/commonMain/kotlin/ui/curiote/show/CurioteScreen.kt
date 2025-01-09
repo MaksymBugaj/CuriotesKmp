@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import curioteskmp.composeapp.generated.resources.Res
 import curioteskmp.composeapp.generated.resources.curiotes
-import domain.curiote.Curiote
+import domain.model.curiote.Curiote
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
@@ -172,43 +172,6 @@ fun CurioteScreen(
             }
         }
     }
-}
-
-@Composable
-fun CustomAlertDialog(
-    curiote: Curiote,
-    onDelete: (Curiote) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(text = "Alert Dialog") },
-        text = { Text(text = "Jetpack Compose Alert Dialog") },
-        confirmButton = { // 6
-            Button(
-                onClick = {
-                    onDelete(curiote)
-                }
-            ) {
-                Text(
-                    text = "Confirm",
-                    color = Color.White
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = onDismiss,
-                content = {
-                    Text(
-                        text = "Dismiss",
-                        color = Color.White
-                    )
-                }
-            )
-        }
-
-    )
 }
 
 @Composable

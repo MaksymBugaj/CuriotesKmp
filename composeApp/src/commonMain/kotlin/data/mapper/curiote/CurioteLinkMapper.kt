@@ -1,8 +1,8 @@
-package data.mapper
+package data.mapper.curiote
 
-import data.db.entity.CurioteLinkEntity
+import data.db.entity.curiote.CurioteLinkEntity
 import data.mapper.base.DataMapperWithParam
-import domain.curiote.curioteLink.CurioteLink
+import domain.model.curiote.curioteLink.CurioteLink
 
 class CurioteLinkMapper : DataMapperWithParam<CurioteLinkEntity, CurioteLink, Long>{
     override fun mapToData(domainModel: CurioteLink, param: Long): CurioteLinkEntity {
