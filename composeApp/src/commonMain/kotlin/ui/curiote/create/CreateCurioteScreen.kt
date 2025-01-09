@@ -23,6 +23,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -35,7 +39,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -106,6 +112,7 @@ fun CurioteContent(
     viewModel: UpsertCurioteBaseViewModel
 ) {
     val paddingDefault = Dimens.paddingDefault
+    val categories = listOf("Test 1", "TESt 2", "Test  3")
 
     Column(
         modifier = Modifier
@@ -167,10 +174,56 @@ fun CurioteContent(
             )
         }
         //todo here add category selector as a selectable list
+        DropdownTextField(categories, onItemSelected = {})
 
         Spacer(modifier = Modifier.height(paddingDefault))
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropdownTextField(
+    items: List<String>,
+    label: String = "Select an item",
+    onItemSelected: (String) -> Unit
+) {
+    // Stan przechowujący wybrany element
+    var selectedText by remember { mutableStateOf("") }
+    // Stan przechowujący rozwinięcie listy
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded } // Zmieniamy stan przy kliknięciu
+    ) {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it }, // Obsługa wpisywanego tekstu
+            label = { Text(label) },
+            modifier = Modifier.menuAnchor(), // Powiązanie pola tekstowego z dropdownem
+            readOnly = true, // Wymuszamy tylko wybór z listy
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) // Ikona rozwijania
+            }
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false } // Zamykamy listę, gdy użytkownik kliknie poza nią
+        ) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(item) },
+                    onClick = {
+                        selectedText = item
+                        expanded = false // Zamykamy listę po wyborze
+                        onItemSelected(item) // Informujemy o wybranym elemencie
+                    }
+                )
+            }
+        }
+    }
+}
+
 
 @Composable
 fun CustomOutlinedButton(

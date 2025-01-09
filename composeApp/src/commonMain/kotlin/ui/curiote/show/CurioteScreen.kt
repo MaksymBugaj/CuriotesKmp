@@ -175,43 +175,6 @@ fun CurioteScreen(
 }
 
 @Composable
-fun CustomAlertDialog(
-    curiote: Curiote,
-    onDelete: (Curiote) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(text = "Alert Dialog") },
-        text = { Text(text = "Jetpack Compose Alert Dialog") },
-        confirmButton = { // 6
-            Button(
-                onClick = {
-                    onDelete(curiote)
-                }
-            ) {
-                Text(
-                    text = "Confirm",
-                    color = Color.White
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = onDismiss,
-                content = {
-                    Text(
-                        text = "Dismiss",
-                        color = Color.White
-                    )
-                }
-            )
-        }
-
-    )
-}
-
-@Composable
 fun CurioteItem(
     curiote: Curiote,
     onCurioteClick: (curioteId: Long) -> Unit,
